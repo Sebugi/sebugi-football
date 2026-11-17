@@ -95,3 +95,6 @@ main { max-width: 640px; margin: 0 auto; padding: 0 20px 24px; }
 
 /* Nota legale in ogni pagina */
 #nota-legale { max-width: 640px; margin: 8px auto 0; padding: 18px 20px calc(24px + env(safe-area-inset-bottom)); text-align: center; font-size: 0.78rem; color: var(--text-soft); border-top: 1px solid var(--line); }
+
+#link-legali{text-align:center;font-size:.8rem;color:var(--text-soft);padding:0 16px 28px}
+#link-legali a{color:var(--text-soft)}

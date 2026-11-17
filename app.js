@@ -21,7 +21,8 @@ const TESTI = {
         nonricordavo:'Non ricordavo', nonsapevo:'Non lo sapevo', mostra:'Mostra risposta', home:'← Home',
         finite:'Hai visto tutte le partite! Ricomincia.', nessuna:'Nessuna partita trovata con queste scelte! Prova a togliere qualche filtro.',
         statTitolo:'Le tue risposte', ancoraNiente:'Le partite arrivano presto.',
-        nonAffiliata:'Sebugi Football non è affiliata a nessuna lega o squadra. I nomi di squadre e giocatori compaiono solo per indicare fatti storici.'},
+        nonAffiliata:'Sebugi Football non è affiliata a nessuna lega o squadra. I nomi di squadre e giocatori compaiono solo per indicare fatti storici.',
+        linkPrivacy:'Privacy', linkTermini:"Condizioni d'uso", linkAvviso:'Non affiliazione'},
     en: {sottotitolo:'Recognise the game from its moments', scegli:'Choose how to play',
         direzione:'What do you want to do', indovina:'Guess the game', ricorda:'Recall the moments',
         livello:'Games', classiche:'The most famous (free)', minori:'The lesser-known (paid, coming soon)',
@@ -32,7 +33,8 @@ const TESTI = {
         nonricordavo:'I forgot it', nonsapevo:"I didn't know", mostra:'Show answer', home:'← Home',
         finite:"You've seen all the games! Start again.", nessuna:'No games found with these choices! Try removing a filter.',
         statTitolo:'Your answers', ancoraNiente:'The games are coming soon.',
-        nonAffiliata:'Sebugi Football is not affiliated with any league or team. Team and player names appear only to state historical facts.'},
+        nonAffiliata:'Sebugi Football is not affiliated with any league or team. Team and player names appear only to state historical facts.',
+        linkPrivacy:'Privacy', linkTermini:'Terms of use', linkAvviso:'Disclaimer'},
     de: {sottotitolo:'Erkenne das Spiel an seinen Momenten', scegli:'Wähle, wie du spielen möchtest',
         direzione:'Was möchtest du tun', indovina:'Spiel erraten', ricorda:'Momente erinnern',
         livello:'Spiele', classiche:'Die bekanntesten (kostenlos)', minori:'Die weniger bekannten (kostenpflichtig, bald)',
@@ -43,7 +45,8 @@ const TESTI = {
         nonricordavo:'Vergessen', nonsapevo:'Wusste ich nicht', mostra:'Antwort zeigen', home:'← Start',
         finite:'Du hast alle Spiele gesehen! Fang neu an.', nessuna:'Keine Spiele für diese Auswahl gefunden! Nimm einen Filter weg.',
         statTitolo:'Deine Antworten', ancoraNiente:'Die Spiele kommen bald.',
-        nonAffiliata:'Sebugi Football ist mit keiner Liga und keinem Team verbunden. Namen von Teams und Spielern dienen nur zur Nennung historischer Fakten.'}
+        nonAffiliata:'Sebugi Football ist mit keiner Liga und keinem Team verbunden. Namen von Teams und Spielern dienen nur zur Nennung historischer Fakten.',
+        linkPrivacy:'Datenschutz', linkTermini:'Nutzungsbedingungen', linkAvviso:'Hinweis'}
 };
 let ui = 'it';
 try { ui = localStorage.getItem('sebugi-football-ui') || 'it'; } catch (e) {}
@@ -218,6 +221,7 @@ document.querySelectorAll('#sel-interfaccia button').forEach(b => b.addEventList
 el('btn-gioca').addEventListener('click', () => {
     const scelte = filtrate();
     if (scelte.length === 0) { alert(T('nessuna')); return; }
+    try { if (window.umami) umami.track('football-inizio'); } catch (e) {}
     risposte = {};
     disegnaStatistiche();
     disponibili = scelte.sort(() => Math.random() - 0.5);

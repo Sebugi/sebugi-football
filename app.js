@@ -49,7 +49,7 @@ const TESTI = {
         linkPrivacy:'Datenschutz', linkTermini:'Nutzungsbedingungen', linkAvviso:'Hinweis'}
 };
 let ui = 'it';
-try { ui = localStorage.getItem('sebugi-football-ui') || 'en'; } catch (e) {}
+ui = 'en';
 try { const l = new URLSearchParams(location.search).get('lang'); if (l && TESTI[l]) ui = l; } catch (e) {}
 if (!TESTI[ui]) ui = 'it';
 const T = k => TESTI[ui][k];
@@ -214,7 +214,6 @@ function applicaLingua() {
 
 document.querySelectorAll('#sel-interfaccia button').forEach(b => b.addEventListener('click', () => {
     ui = b.dataset.ui;
-    try { localStorage.setItem('sebugi-football-ui', ui); } catch (e) {}
     applicaLingua();
 }));
 

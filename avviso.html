@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Non affiliazione e fonti / Non-affiliation and sources - Sebugi</title>
+<title>Non-affiliation and sources - Sebugi</title>
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="apple-touch-icon" href="favicon-192.png">
 <style>
@@ -17,17 +17,6 @@ small{color:#5a4630}
 </head>
 <body>
 <p><a href="./">&larr; Home</a></p>
-<div id="blocco-it">
-<h1>Non affiliazione e fonti</h1>
-<p><small>Ultimo aggiornamento: 17 novembre 2026</small></p>
-
-<p>Sebugi Football non è affiliata, sponsorizzata o approvata da alcuna lega, squadra, giocatore, allenatore o titolare di marchi citati nell'app (compresi i marchi NFL e Super Bowl).</p>
-<p>Nomi di squadre, competizioni, persone e luoghi sono usati solo per identificare le partite. Tutti i marchi e i nomi appartengono ai rispettivi proprietari.</p>
-<p>Questa app riporta solo fatti storici (data, luogo, punteggio e svolgimento) con testi scritti da Sebugi. Non contiene loghi, stemmi, fotografie, video o altro materiale ufficiale di terzi.</p>
-<p>Segnalazioni o richieste: <a href="mailto:sebugi.app@gmail.com">sebugi.app@gmail.com</a>.</p>
-
-</div>
-<hr id="separatore">
 <div id="blocco-en">
 <h1>Non-affiliation and sources</h1>
 <p><small>Last updated: 17 November 2026</small></p>
@@ -38,19 +27,5 @@ small{color:#5a4630}
 <p>Reports or requests: <a href="mailto:sebugi.app@gmail.com">sebugi.app@gmail.com</a>.</p>
 
 </div>
-<script>
-(function () {
-    var lang = 'en';
-    try { lang = localStorage.getItem('sebugi-football-ui') || 'en'; } catch (e) {}
-    try { var l = new URLSearchParams(location.search).get('lang'); if (l) lang = l; } catch (e) {}
-    if (lang !== 'it') {
-        var it = document.getElementById('blocco-it');
-        var sep = document.getElementById('separatore');
-        if (it) it.style.display = 'none';
-        if (sep) sep.style.display = 'none';
-        document.documentElement.lang = 'en';
-    }
-})();
-</script>
 </body>
 </html>

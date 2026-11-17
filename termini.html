@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Condizioni d'uso / Terms of use - Sebugi</title>
+<title>Terms of use - Sebugi</title>
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
     <link rel="apple-touch-icon" href="favicon-192.png">
 <style>
@@ -17,23 +17,6 @@ small{color:#5a4630}
 </head>
 <body>
 <p><a href="./">&larr; Home</a></p>
-<div id="blocco-it">
-<h1>Condizioni d'uso</h1>
-<p><small>Ultimo aggiornamento: 17 novembre 2026</small></p>
-
-<h2>Uso dell'app</h2>
-<p>Sebugi Football è un quiz a scopo di intrattenimento e di studio. Puoi usarle gratuitamente per uso personale. Non è consentito copiare in modo sistematico i contenuti, estrarli con strumenti automatici o rivenderli.</p>
-<h2>Contenuti</h2>
-<p>Le informazioni sulle partite (data, luogo, punteggio e svolgimento) sono fatti storici raccolti da fonti pubbliche e riportati con testi scritti da Sebugi. Facciamo il possibile per verificarli, ma alcuni dettagli possono differire da una fonte all'altra. Le traduzioni mostrate nell'interfaccia sono generate automaticamente e possono contenere imprecisioni. Se trovi un errore, scrivici. Il design, le illustrazioni, il software e l'organizzazione dei contenuti appartengono a Sebugi.</p>
-<h2>Nessuna garanzia</h2>
-<p>L'app è fornita così com'è. Facciamo il possibile per mantenerla corretta e disponibile, ma non garantiamo che sia priva di errori o sempre raggiungibile. Nei limiti consentiti dalla legge, non rispondiamo di danni derivanti dall'uso o dal mancato uso dell'app. Restano ferme le tutele di legge a favore dei consumatori.</p>
-<h2>Funzioni a pagamento</h2>
-<p>Se verranno introdotte funzioni a pagamento, prezzi, durata, rinnovo e diritto di recesso saranno indicati prima dell'acquisto. Per i contenuti digitali ti chiederemo il consenso a riceverli subito e ti avviseremo che, una volta iniziata la fornitura, perdi il diritto di recesso di 14 giorni. A queste condizioni si aggiungeranno quelle del servizio di pagamento.</p>
-<h2>Contatti</h2>
-<p>Per qualsiasi domanda: <a href="mailto:sebugi.app@gmail.com">sebugi.app@gmail.com</a>.</p>
-
-</div>
-<hr id="separatore">
 <div id="blocco-en">
 <h1>Terms of use</h1>
 <p><small>Last updated: 17 November 2026</small></p>
@@ -50,19 +33,5 @@ small{color:#5a4630}
 <p>For any question: <a href="mailto:sebugi.app@gmail.com">sebugi.app@gmail.com</a>.</p>
 
 </div>
-<script>
-(function () {
-    var lang = 'en';
-    try { lang = localStorage.getItem('sebugi-football-ui') || 'en'; } catch (e) {}
-    try { var l = new URLSearchParams(location.search).get('lang'); if (l) lang = l; } catch (e) {}
-    if (lang !== 'it') {
-        var it = document.getElementById('blocco-it');
-        var sep = document.getElementById('separatore');
-        if (it) it.style.display = 'none';
-        if (sep) sep.style.display = 'none';
-        document.documentElement.lang = 'en';
-    }
-})();
-</script>
 </body>
 </html>

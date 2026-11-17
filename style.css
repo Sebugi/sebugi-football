@@ -98,3 +98,4 @@ main { max-width: 640px; margin: 0 auto; padding: 0 20px 24px; }
 
 #link-legali{text-align:center;font-size:.8rem;color:var(--text-soft);padding:0 16px 28px}
 #link-legali a{color:var(--text-soft)}
+.logo-home{display:block;margin:0 auto 8px;width:130px;max-width:45%;height:auto}

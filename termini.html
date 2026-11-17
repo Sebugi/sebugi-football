@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -52,8 +52,8 @@ small{color:#5a4630}
 </div>
 <script>
 (function () {
-    var lang = 'it';
-    try { lang = localStorage.getItem('sebugi-football-ui') || 'it'; } catch (e) {}
+    var lang = 'en';
+    try { lang = localStorage.getItem('sebugi-football-ui') || 'en'; } catch (e) {}
     try { var l = new URLSearchParams(location.search).get('lang'); if (l) lang = l; } catch (e) {}
     if (lang !== 'it') {
         var it = document.getElementById('blocco-it');

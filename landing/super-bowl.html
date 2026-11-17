@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0f1c2e">
-<title>Quiz sulle partite storiche del football americano | Sebugi Football</title>
+<title>Super Bowl quiz: do you remember these games? | Sebugi Football</title>
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
 <link rel="apple-touch-icon" href="../favicon-192.png">
-<meta name="description" content="Cinque Super Bowl, due risposte ciascuno. Riconosci la partita dal racconto? Gratis, in due minuti.">
+<meta name="description" content="Five Super Bowls, two answers each. Can you tell the game from the story? Free, two minutes.">
 <link rel="canonical" href="https://football.sebugi.com/landing/super-bowl.html">
 <meta name="robots" content="noindex">
 <style>
@@ -45,51 +45,51 @@ h1{font-size:1.6rem;line-height:1.2;margin:.2em 0 .3em;text-align:center}
 <div class="stripe"></div>
 <div class="wrap">
 <img src="../logo.png" alt="Sebugi" width="150" style="display:block;margin:0 auto 6px;max-width:50%;height:auto">
-<h1>Ti ricordi questi Super Bowl?</h1>
-<p class="sotto">Cinque Super Bowl: leggi il racconto e indovina quale è.</p>
+<h1>Do you remember these Super Bowls?</h1>
+<p class="sotto">Five Super Bowls: read the story and guess which game it is.</p>
 
 <div class="card intro" id="intro">
-<h2>Come funziona</h2>
-<p>Un gioco gratuito di due minuti. Per ogni partita leggi pochi fatti, senza i nomi delle squadre, e scegli tra due coppie di squadre. Scopri subito se hai indovinato.</p>
-<ul><li>Gratis e senza registrazione</li><li>Dura circa due minuti</li><li>Alla fine vedi il tuo punteggio</li></ul>
-<button class="start" id="start" type="button" data-umami-event="football-inizio-test">Fai il test</button>
+<h2>How it works</h2>
+<p>A free two-minute game. For each game you read a few facts, without the team names, and pick between two pairs of teams. You find out right away if you got it right.</p>
+<ul><li>Free, no sign-up</li><li>Takes about two minutes</li><li>See your score at the end</li></ul>
+<button class="start" id="start" type="button" data-umami-event="football-inizio-test">Take the quiz</button>
 </div>
 
 <div class="card" id="quiz" hidden>
-<p class="num">Partita <span id="n">1</span> di 5</p>
+<p class="num">Game <span id="n">1</span> of 5</p>
 <p class="testo" id="testo"></p>
 <div id="opzioni"></div>
 <div id="dopo" hidden>
 <p class="esito" id="esito"></p>
 <p class="orig" id="orig"></p>
-<button class="avanti" id="avanti" type="button">Avanti</button>
+<button class="avanti" id="avanti" type="button">Next</button>
 </div>
 </div>
 
 <div class="card" id="fine" hidden>
 <p class="punti" id="punti"></p>
 <p id="commento" style="text-align:center"></p>
-<p style="text-align:center">Nell'app trovi decine di partite storiche, con i fatti essenziali di ognuna. È gratuita e senza registrazione.</p>
-<a class="cta" href="https://football.sebugi.com/" id="cta" data-umami-event="football-entra-app">Entra nell'app e continua a giocare</a>
-<button class="avanti" id="ripeti" type="button" style="background:transparent;color:#f1ecdd;border:1px solid rgba(233,226,207,.35)">Rifai il quiz</button>
+<p style="text-align:center">In the app you will find dozens of historic games, with the key facts for each. It is free and needs no sign-up.</p>
+<a class="cta" href="https://football.sebugi.com/" id="cta" data-umami-event="football-entra-app">Open the app and keep playing</a>
+<button class="avanti" id="ripeti" type="button" style="background:transparent;color:#f1ecdd;border:1px solid rgba(233,226,207,.35)">Play again</button>
 </div>
 
-<p class="app">Se ti piace, c'è l'intera app: <a href="https://football.sebugi.com/" data-umami-event="football-entra-app-piede">football.sebugi.com</a></p>
+<p class="app">Like it? The full app is here: <a href="https://football.sebugi.com/" data-umami-event="football-entra-app-piede">football.sebugi.com</a></p>
 
-<p class="piede"><a href="../privacy.html">Privacy</a> · <a href="../termini.html">Condizioni d'uso</a> · <a href="../avviso.html">Non affiliazione</a></p>
+<p class="piede"><a href="../privacy.html">Privacy</a> · <a href="../termini.html">Terms of use</a> · <a href="../avviso.html">Non-affiliation</a></p>
 </div>
 <script>
 var Q=[
-{t:"Una squadra è avanti 28 a 3 nel corso del terzo quarto, dopo un intercetto restituito per 82 yard da Robert Alford. Poi rimonta 25 punti, la più grande rimonta di una finale, e porta la partita ai tempi supplementari, per la prima volta in una finale. James White segna tre touchdown, l'ultimo di corsa da 2 yard.",
- g:"New England Patriots-Atlanta Falcons",s:"Kansas City Chiefs-Philadelphia Eagles",r:"Super Bowl LI, 5 febbraio 2017: New England Patriots 34, Atlanta Falcons 28 ai supplementari."},
-{t:"Tre giorni prima, il quarterback della squadra dell'AFL dice in pubblico: \"Vinceremo la partita. Lo garantisco\". Gli avversari, della NFL, lanciano quattro intercetti. Matt Snell segna di corsa, Jim Turner calcia tre field goal.",
- g:"New York Jets-Baltimore Colts",s:"Green Bay Packers-Kansas City Chiefs",r:"Super Bowl III, 12 gennaio 1969: New York Jets 16, Baltimore Colts 7."},
-{t:"Una squadra segna un touchdown di corsa da 31 yard con Thurman Thomas e va sul 19 a 17. Il kicker Scott Norwood tenta un field goal da 47 yard a 8 secondi dalla fine: il pallone finisce a destra, a meno di un metro dal palo.",
- g:"New York Giants-Buffalo Bills",s:"Washington Redskins-Buffalo Bills",r:"Super Bowl XXV, 27 gennaio 1991: New York Giants 20, Buffalo Bills 19."},
-{t:"Dopo 12 secondi la prima azione finisce con una safety, il punteggio di apertura più veloce di una finale. Malcolm Smith riporta un intercetto di 69 yard in touchdown ed è nominato MVP. I vincitori vincono con 35 punti di scarto.",
- g:"Seattle Seahawks-Denver Broncos",s:"Denver Broncos-Carolina Panthers",r:"Super Bowl XLVIII, 2 febbraio 2014: Seattle Seahawks 43, Denver Broncos 8."},
-{t:"Una squadra è sotto 24 a 14 nel terzo quarto e rimonta con i touchdown di Danny Amendola e Julian Edelman. Negli ultimi secondi gli avversari sono sulla linea della 1 yard. Il cornerback Malcolm Butler intercetta il lancio di Russell Wilson, quando mancano 20 secondi.",
- g:"New England Patriots-Seattle Seahawks",s:"New York Giants-New England Patriots",r:"Super Bowl XLIX, 1 febbraio 2015: New England Patriots 28, Seattle Seahawks 24."}
+{t:"One team leads 28 to 3 in the third quarter, after an 82-yard interception return by Robert Alford. The other then comes back from 25 points down, the biggest comeback in a final, and forces the first overtime in the history of the game. James White scores three touchdowns, the last one a 2-yard run. Tom Brady wins his fourth MVP award.",
+ g:"New England Patriots-Atlanta Falcons",s:"Kansas City Chiefs-Philadelphia Eagles",r:"Super Bowl LI, February 5, 2017: New England Patriots 34, Atlanta Falcons 28, in overtime."},
+{t:"Three days earlier, the quarterback of the AFL team says in public: \"We're gonna win the game. I guarantee it.\" The NFL opponents throw four interceptions. Matt Snell scores on the ground, Jim Turner kicks three field goals and Jerry Hill only closes the gap late. Namath is named MVP without having thrown a single touchdown pass.",
+ g:"New York Jets-Baltimore Colts",s:"Green Bay Packers-Kansas City Chiefs",r:"Super Bowl III, January 12, 1969: New York Jets 16, Baltimore Colts 7."},
+{t:"One team takes a 19 to 17 lead on a 31-yard touchdown run by Thurman Thomas. Kicker Scott Norwood attempts a 47-yard field goal with 8 seconds left: the ball sails right, less than a yard outside the upright. Ottis Anderson, with 102 rushing yards and a touchdown, is named MVP.",
+ g:"New York Giants-Buffalo Bills",s:"Washington Redskins-Buffalo Bills",r:"Super Bowl XXV, January 27, 1991: New York Giants 20, Buffalo Bills 19."},
+{t:"After 12 seconds the first play ends in a safety, the fastest opening score in a final. Malcolm Smith returns a 69-yard interception for a touchdown and is named MVP. Percy Harvin scores on an 87-yard kickoff return 12 seconds into the second half. Peyton Manning completes 34 passes and Demaryius Thomas catches 13, two records. The winners, 2-point underdogs, win by 35.",
+ g:"Seattle Seahawks-Denver Broncos",s:"Denver Broncos-Carolina Panthers",r:"Super Bowl XLVIII, February 2, 2014: Seattle Seahawks 43, Denver Broncos 8."},
+{t:"One team trails 24 to 14 in the third quarter and comes back with touchdowns from Danny Amendola and Julian Edelman. In the final seconds the opponents are at the 1-yard line. Cornerback Malcolm Butler intercepts Russell Wilson's pass intended for Ricardo Lockette with 20 seconds left. Tom Brady wins his third MVP award.",
+ g:"New England Patriots-Seattle Seahawks",s:"New York Giants-New England Patriots",r:"Super Bowl XLIX, February 1, 2015: New England Patriots 28, Seattle Seahawks 24."}
 ];
 var i=0,pt=0;
 function $(x){return document.getElementById(x)}
@@ -106,17 +106,17 @@ function risp(b,ok){
  b.classList.add(ok?"ok":"no");
  if(!ok){bs.forEach(function(x){if(x.textContent===Q[i].g)x.classList.add("ok")})}
  if(ok)pt++;
- $("esito").textContent=ok?"Giusto!":"Non è questa.";
+ $("esito").textContent=ok?"Correct!":"Not this one.";
  $("orig").textContent=Q[i].r;
- $("avanti").textContent=i<Q.length-1?"Avanti":"Vedi il punteggio";
+ $("avanti").textContent=i<Q.length-1?"Next":"See your score";
  $("dopo").hidden=false;
 }
 $("start").onclick=function(){$("intro").hidden=true;$("quiz").hidden=false;i=0;pt=0;mostra()};
 $("avanti").onclick=function(){
  if(i<Q.length-1){i++;mostra();return}
  $("quiz").hidden=true;$("fine").hidden=false;
- $("punti").textContent="Hai indovinato "+pt+" su "+Q.length;
- $("commento").textContent=pt===5?"Memoria da campione.":pt>=3?"Bel risultato.":"Ci sono ancora molte partite da scoprire.";
+ $("punti").textContent="You got "+pt+" out of "+Q.length;
+ $("commento").textContent=pt===5?"Champion memory.":pt>=3?"Nice result.":"Plenty of games left to discover.";
  try{if(window.umami)umami.track("football-fine-test",{punti:pt})}catch(e){}
 };
 $("ripeti").onclick=function(){$("fine").hidden=true;$("quiz").hidden=false;i=0;pt=0;mostra()};

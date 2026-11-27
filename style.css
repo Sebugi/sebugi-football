@@ -99,3 +99,21 @@ main { max-width: 640px; margin: 0 auto; padding: 0 20px 24px; }
 #link-legali{text-align:center;font-size:.8rem;color:var(--text-soft);padding:0 16px 28px}
 #link-legali a{color:var(--text-soft)}
 .logo-home{display:block;margin:0 auto 8px;width:130px;max-width:45%;height:auto}
+
+/* Segnala un problema */
+#btn-segnala { display: block; margin: 14px auto 0; background: none; border: 0; color: var(--text-soft); text-decoration: underline; font-size: 0.9rem; padding: 6px; }
+#segnala-pannello { margin-top: 14px; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; text-align: left; }
+.segnala-cosa { font-weight: 600; margin-bottom: 8px; }
+#segnala-tipo, #segnala-note { width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: 10px; padding: 10px; font: inherit; font-size: 0.95rem; }
+#segnala-note { margin: 8px 0; resize: vertical; }
+.segnala-riga { display: flex; gap: 8px; }
+.segnala-riga > * { flex: 1; text-align: center; border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: var(--surface); color: var(--text); font-size: 0.9rem; text-decoration: none; }
+#segnala-esito, .segnala-mail { font-size: 0.85rem; color: var(--text-soft); margin-top: 8px; word-break: break-word; }
+
+/* Fine del giro e ripasso */
+#fine-giro { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 20px; text-align: center; }
+#fine-giro p { font-size: 1.1rem; margin-bottom: 14px; }
+#btn-ricomincia { width: 100%; border: 0; border-radius: var(--radius); padding: 14px; font-size: 1rem; font-weight: 600; background: var(--turf); color: #f4f0e2; }
+#ripasso { margin-top: 16px; }
+.ripasso-titolo { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.btn-ripasso { display: block; width: 100%; margin: 6px 0; padding: 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text); font-size: 0.95rem; text-align: left; }

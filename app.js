@@ -5,6 +5,9 @@ let corrente = null;
 let risposte = {};
 let direzione = 'indovina';
 let livello = '1';
+let gruppi = {};          // partite di questo giro per categoria di risposta, per il ripasso
+let ultimeScelte = [];
+const traccia = (nome, dati) => { try { if (window.umami) umami.track(nome, dati); } catch (e) {} };
 
 const sel = { sport: new Set(), squadra: new Set(), stagione: new Set() };
 const el = id => document.getElementById(id);
@@ -22,7 +25,13 @@ const TESTI = {
         finite:'Hai visto tutte le partite! Ricomincia.', nessuna:'Nessuna partita trovata con queste scelte! Prova a togliere qualche filtro.',
         statTitolo:'Le tue risposte', ancoraNiente:'Le partite arrivano presto.',
         nonAffiliata:'Sebugi Football non è affiliata a nessuna lega o squadra. I nomi di squadre e giocatori compaiono solo per indicare fatti storici.',
-        linkPrivacy:'Privacy', linkTermini:"Condizioni d'uso", linkAvviso:'Non affiliazione'},
+        linkPrivacy:'Privacy', linkTermini:"Condizioni d'uso", linkAvviso:'Non affiliazione',
+        ripassaGruppo:'Ripassa: {nome} ({n})', ripassoTitolo:'Ripassa le partite che non sapevi',
+        fineGiro:'Hai visto tutte le partite scelte.', ricomincia:'Ricomincia',
+        segnala:'Segnala un problema con questa risposta', segnalaCosa:'Cosa non va?',
+        segnalaTipi:['Dato sbagliato','Testo poco chiaro','Altro problema'], segnalaNote:'Scrivi qui (facoltativo)',
+        segnalaCopia:'Copia messaggio', segnalaInvia:'Invia per email', segnalaCopiato:'Copiato. Incollalo in una mail a sebugi.app@gmail.com',
+        segnalaPartita:'Partita', segnalaModo:'Modo', segnalaTipo:'Tipo', segnalaTesto:'Note'},
     en: {sottotitolo:'Recognise the game from its moments', scegli:'Choose how to play',
         direzione:'What do you want to do', indovina:'Guess the game', ricorda:'Recall the moments',
         livello:'Games', classiche:'The most famous (free)', minori:'The lesser-known (paid, coming soon)',
@@ -34,7 +43,13 @@ const TESTI = {
         finite:"You've seen all the games! Start again.", nessuna:'No games found with these choices! Try removing a filter.',
         statTitolo:'Your answers', ancoraNiente:'The games are coming soon.',
         nonAffiliata:'Sebugi Football is not affiliated with any league or team. Team and player names appear only to state historical facts.',
-        linkPrivacy:'Privacy', linkTermini:'Terms of use', linkAvviso:'Disclaimer'},
+        linkPrivacy:'Privacy', linkTermini:'Terms of use', linkAvviso:'Disclaimer',
+        ripassaGruppo:'Review: {nome} ({n})', ripassoTitolo:'Review the games you missed',
+        fineGiro:"You've seen all the games you chose.", ricomincia:'Start again',
+        segnala:'Report a problem with this answer', segnalaCosa:"What's wrong?",
+        segnalaTipi:['Wrong fact','Unclear text','Other problem'], segnalaNote:'Write here (optional)',
+        segnalaCopia:'Copy message', segnalaInvia:'Send by email', segnalaCopiato:'Copied. Paste it into an email to sebugi.app@gmail.com',
+        segnalaPartita:'Game', segnalaModo:'Mode', segnalaTipo:'Type', segnalaTesto:'Notes'},
     de: {sottotitolo:'Erkenne das Spiel an seinen Momenten', scegli:'Wähle, wie du spielen möchtest',
         direzione:'Was möchtest du tun', indovina:'Spiel erraten', ricorda:'Momente erinnern',
         livello:'Spiele', classiche:'Die bekanntesten (kostenlos)', minori:'Die weniger bekannten (kostenpflichtig, bald)',
@@ -46,13 +61,19 @@ const TESTI = {
         finite:'Du hast alle Spiele gesehen! Fang neu an.', nessuna:'Keine Spiele für diese Auswahl gefunden! Nimm einen Filter weg.',
         statTitolo:'Deine Antworten', ancoraNiente:'Die Spiele kommen bald.',
         nonAffiliata:'Sebugi Football ist mit keiner Liga und keinem Team verbunden. Namen von Teams und Spielern dienen nur zur Nennung historischer Fakten.',
-        linkPrivacy:'Datenschutz', linkTermini:'Nutzungsbedingungen', linkAvviso:'Hinweis'}
+        linkPrivacy:'Datenschutz', linkTermini:'Nutzungsbedingungen', linkAvviso:'Hinweis',
+        ripassaGruppo:'Wiederholen: {nome} ({n})', ripassoTitolo:'Wiederhole die Spiele, die du nicht wusstest',
+        fineGiro:'Du hast alle gewählten Spiele gesehen.', ricomincia:'Neu starten',
+        segnala:'Ein Problem mit dieser Antwort melden', segnalaCosa:'Was stimmt nicht?',
+        segnalaTipi:['Falsche Angabe','Unklarer Text','Anderes Problem'], segnalaNote:'Hier schreiben (optional)',
+        segnalaCopia:'Nachricht kopieren', segnalaInvia:'Per E-Mail senden', segnalaCopiato:'Kopiert. Füge es in eine E-Mail an sebugi.app@gmail.com ein',
+        segnalaPartita:'Spiel', segnalaModo:'Modus', segnalaTipo:'Art', segnalaTesto:'Notizen'}
 };
 let ui = 'it';
 ui = 'en';
 try { const l = new URLSearchParams(location.search).get('lang'); if (l && TESTI[l]) ui = l; } catch (e) {}
 if (!TESTI[ui]) ui = 'it';
-const T = k => TESTI[ui][k];
+const T = (k, v) => { let t = TESTI[ui][k]; if (v && typeof t === 'string') Object.keys(v).forEach(x => { t = t.replace('{' + x + '}', v[x]); }); return t; };
 
 const SPORT = { football: { it: 'Football americano', en: 'American football', de: 'American Football' } };
 const FASI = {
@@ -168,18 +189,85 @@ function mostraRisposta() {
 }
 
 function prossima() {
-    if (disponibili.length === 0) { alert(T('finite')); mostraHome(); return; }
+    chiudiSegnala();
+    if (disponibili.length === 0) {
+        // Fine del giro: niente ritorno automatico alla home, così si può ripassare
+        corrente = null;
+        el('card-domanda').style.display = 'none';
+        el('risposta').style.display = 'none';
+        el('btn-mostra-risposta').style.display = 'none';
+        el('fine-giro').style.display = 'block';
+        return;
+    }
+    el('fine-giro').style.display = 'none';
+    el('card-domanda').style.display = 'block';
     corrente = disponibili.pop();
     mostraDomanda();
     el('risposta').style.display = 'none';
     el('btn-mostra-risposta').style.display = 'block';
 }
 
+// ---------- Ripasso di un gruppo (es. solo le sbagliate) ----------
+function disegnaRipasso() {
+    const box = el('ripasso');
+    const voci = CATEGORIE.filter(([k]) => k !== 'corretto' && (gruppi[k] || []).length);
+    if (!voci.length) { box.style.display = 'none'; box.innerHTML = ''; return; }
+    box.style.display = 'block';
+    box.innerHTML = '';
+    const h = document.createElement('p');
+    h.className = 'ripasso-titolo';
+    h.textContent = T('ripassoTitolo');
+    box.appendChild(h);
+    voci.forEach(([k]) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'btn-ripasso stat-' + k;
+        b.textContent = T('ripassaGruppo', { nome: T(k), n: gruppi[k].length });
+        b.addEventListener('click', () => avviaGiro(gruppi[k].slice(), 'football-ripasso', { gruppo: k }));
+        box.appendChild(b);
+    });
+}
+
+function avviaGiro(lista, evento, dati) {
+    traccia(evento, dati);
+    risposte = {};
+    gruppi = {};
+    disegnaStatistiche();
+    ultimeScelte = lista.slice();
+    disponibili = lista.sort(() => Math.random() - 0.5);
+    mostraGioco();
+    window.scrollTo(0, 0);
+    prossima();
+}
+
+// ---------- Segnala un problema con questa risposta ----------
+function messaggioSegnala() {
+    const tipi = T('segnalaTipi');
+    return 'Sebugi Football\n' + T('segnalaPartita') + ': ' + (corrente ? corrente.id : '') +
+        '\n' + T('segnalaModo') + ': ' + direzione + '\n' + T('segnalaTipo') + ': ' + tipi[Number(el('segnala-tipo').value) || 0] +
+        '\n' + T('segnalaTesto') + ': ' + el('segnala-note').value;
+}
+function chiudiSegnala() {
+    el('segnala-pannello').style.display = 'none';
+    el('btn-segnala').style.display = 'block';
+    el('segnala-note').value = '';
+    el('segnala-esito').textContent = '';
+}
+function apriSegnala() {
+    const sel = el('segnala-tipo');
+    sel.innerHTML = '';
+    T('segnalaTipi').forEach((t, i) => { const o = document.createElement('option'); o.value = i; o.textContent = t; sel.appendChild(o); });
+    el('segnala-note').placeholder = T('segnalaNote');
+    el('segnala-pannello').style.display = 'block';
+    el('btn-segnala').style.display = 'none';
+    traccia('football-segnala-apri');
+}
+
 // ---------- Grafico delle risposte in tempo reale ----------
 function disegnaStatistiche() {
     const tot = CATEGORIE.reduce((s, [k]) => s + (risposte[k] || 0), 0);
     el('statistiche').style.display = tot ? 'block' : 'none';
-    if (!tot) return;
+    if (!tot) { disegnaRipasso(); return; }
     el('stat-titolo').textContent = T('statTitolo') + ' · ' + tot;
     el('stat-grafico').innerHTML = CATEGORIE.map(([k]) => {
         const n = risposte[k] || 0;
@@ -191,10 +279,15 @@ function disegnaStatistiche() {
             <span class="stat-n">${n}</span>
         </div>`;
     }).join('');
+    disegnaRipasso();
 }
 
 function registra(chiave) {
     risposte[chiave] = (risposte[chiave] || 0) + 1;
+    if (corrente) {
+        Object.keys(gruppi).forEach(k => { gruppi[k] = gruppi[k].filter(x => x !== corrente); });
+        (gruppi[chiave] = gruppi[chiave] || []).push(corrente);
+    }
     disegnaStatistiche();
     prossima();
 }
@@ -220,12 +313,18 @@ document.querySelectorAll('#sel-interfaccia button').forEach(b => b.addEventList
 el('btn-gioca').addEventListener('click', () => {
     const scelte = filtrate();
     if (scelte.length === 0) { alert(T('nessuna')); return; }
-    try { if (window.umami) umami.track('football-inizio'); } catch (e) {}
-    risposte = {};
-    disegnaStatistiche();
-    disponibili = scelte.sort(() => Math.random() - 0.5);
-    mostraGioco();
-    prossima();
+    avviaGiro(scelte, 'football-inizio');
+});
+el('btn-ricomincia').addEventListener('click', () => avviaGiro(ultimeScelte.slice(), 'football-ricomincia'));
+el('btn-segnala').addEventListener('click', apriSegnala);
+el('segnala-copia').addEventListener('click', () => {
+    const m = messaggioSegnala();
+    try { navigator.clipboard.writeText(m).then(() => { el('segnala-esito').textContent = T('segnalaCopiato'); }, () => { el('segnala-esito').textContent = m; }); }
+    catch (e) { el('segnala-esito').textContent = m; }
+});
+el('segnala-invia').addEventListener('click', () => {
+    traccia('football-segnala-invia');
+    el('segnala-invia').href = 'mailto:sebugi.app@gmail.com?subject=' + encodeURIComponent('Sebugi Football: ' + T('segnala')) + '&body=' + encodeURIComponent(messaggioSegnala());
 });
 
 el('btn-home').addEventListener('click', mostraHome);

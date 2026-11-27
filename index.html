@@ -13,7 +13,7 @@
     <meta property="og:description" content="A quiz on historic American football games.">
     <meta property="og:image" content="https://football.sebugi.com/logo.png">
     <link rel="stylesheet" href="fonts/fonts.css">
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=4">
     <script defer src="https://cloud.umami.is/script.js" data-website-id="86c03d25-c58e-427d-a332-2fb69da70300" data-domains="football.sebugi.com"></script>
 </head>
 <body>
@@ -89,6 +89,24 @@
                     <button class="anki-btn" id="btn-nonricordo" data-i18n="nonricordavo">Non ricordavo</button>
                     <button class="anki-btn" id="btn-nonsapevo" data-i18n="nonsapevo">Non lo sapevo</button>
                 </div>
+
+                <button type="button" id="btn-segnala" data-i18n="segnala">Report a problem with this answer</button>
+                <div id="segnala-pannello" style="display:none;">
+                    <p class="segnala-cosa" data-i18n="segnalaCosa">What's wrong?</p>
+                    <select id="segnala-tipo"></select>
+                    <textarea id="segnala-note" rows="3"></textarea>
+                    <div class="segnala-riga">
+                        <button type="button" id="segnala-copia" data-i18n="segnalaCopia">Copy message</button>
+                        <a id="segnala-invia" href="mailto:sebugi.app@gmail.com" data-i18n="segnalaInvia">Send by email</a>
+                    </div>
+                    <p id="segnala-esito"></p>
+                    <p class="segnala-mail">sebugi.app@gmail.com</p>
+                </div>
+            </div>
+
+            <div id="fine-giro" style="display:none;">
+                <p data-i18n="fineGiro">You've seen all the games you chose.</p>
+                <button type="button" id="btn-ricomincia" data-i18n="ricomincia">Start again</button>
             </div>
 
             <button id="btn-mostra-risposta" style="display:none;" data-i18n="mostra">Mostra risposta</button>
@@ -97,6 +115,7 @@
         <aside id="statistiche" style="display:none;" aria-live="polite">
             <h3 id="stat-titolo"></h3>
             <div id="stat-grafico"></div>
+            <div id="ripasso" style="display:none;"></div>
         </aside>
     </div>
 
@@ -104,6 +123,6 @@
     <p id="link-legali"><a href="privacy.html" data-i18n="linkPrivacy">Privacy</a> · <a href="termini.html" data-i18n="linkTermini">Condizioni d'uso</a> · <a href="avviso.html" data-i18n="linkAvviso">Non affiliazione</a></p>
 
     <script src="illustrazioni.js?v=2"></script>
-    <script src="app.js?v=4"></script>
+    <script src="app.js?v=5"></script>
 </body>
 </html>
